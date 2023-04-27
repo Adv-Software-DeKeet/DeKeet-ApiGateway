@@ -1,0 +1,8 @@
+steps:
+# deploy container image to GKE
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+    - run
+    - --filename=src/main/resources/deployment.yaml
+    - --location=europe-west4
+    - --cluster=dekeet-cluster-nl
