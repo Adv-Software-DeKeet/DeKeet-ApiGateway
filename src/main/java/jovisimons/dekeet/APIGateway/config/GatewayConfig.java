@@ -23,6 +23,9 @@ public class GatewayConfig {
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
 
+                .route(r -> r.path("/")
+                        .and().method(HttpMethod.GET)
+                        .uri("no://op"))
                 .route(r -> r.path("/api/user/**")
                         .and().method(HttpMethod.GET)
                         .filters(f -> f.filter(filter))
