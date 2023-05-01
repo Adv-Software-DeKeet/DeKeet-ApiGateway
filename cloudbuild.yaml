@@ -1,8 +1,17 @@
 steps:
 # deploy container image to GKE
-- name: "gcr.io/cloud-builders/gke-deploy"
+#- name: "gcr.io/cloud-builders/gke-deploy"
+#  args:
+#    - run
+#    - --filename=src/main/resources/deployment.yaml
+#    - --location=europe-west4
+#    - --cluster=dekeet-cluster-nl
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
   args:
-    - run
-    - --filename=src/main/resources/deployment.yaml
-    - --location=europe-west4
-    - --cluster=dekeet-cluster-nl
+    - '-c'
+    - >
+      gcloud deploy releases create release-$BUILD_ID
+      --delivery-pipeline=deploy-to-gke
+      --region=europe-west4
+      --source=src/main/resources
