@@ -1,17 +1,19 @@
 steps:
-# deploy container image to GKEa
-#- name: "gcr.io/cloud-builders/gke-deploy"
-#  args:
-#    - run
-#    - --filename=src/main/resources/deployment.yaml
-#    - --location=europe-west4
-#    - --cluster=dekeet-cluster-nl
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+- name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
-  args:
-    - '-c'
-    - >
-      gcloud deploy releases create release-$BUILD_ID
-      --delivery-pipeline=deploy-to-gke
-      --region=europe-west4
-      --source=src/main/resources
+  args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: [ 'build', '-t', '${_DOCKER_USERNAME}/dekeet-apigateway:latest', '.' ]
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
+#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  #entrypoint: 'bash'
+  #args:
+   # - '-c'
+   # - >
+   #   gcloud deploy releases create release-$BUILD_ID
+    #  --delivery-pipeline=deploy-to-gke
+    #  --region=europe-west4
+    #  --source=src/main/resources
