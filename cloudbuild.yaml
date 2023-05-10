@@ -14,9 +14,9 @@ steps:
 - name: 'gcr.io/de-keet/sonar-scanner:latest'
   args:
         - '-Dsonar.host.url=https://sonarcloud.io'
-        - '-Dsonar.login=JoviSimons@github'
-        - '-Dsonar.projectKey=adv-software-dekeet'
-        - '-Dsonar.organization=Adv-Software-DeKeet'
+        - '-Dsonar.login=ff20baf55553d7ccc9f6da33e8d9eb5d94f6749f'
+        - '-Dsonar.projectKey=jovisimons.dekeet.APIGateway'
+        - '-Dsonar.organization=de-keet'
         - '-Dsonar.sources=.'
 tags: [ 'cloud-builders-community' ]
 #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
