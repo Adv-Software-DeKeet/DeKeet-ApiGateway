@@ -11,12 +11,21 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-    - '-c'
-    - >
-      gcloud deploy releases create release-$BUILD_ID
-      --delivery-pipeline=deploy-to-gke
-      --region=europe-west4
-      --source=src/main/resources
+  steps:
+    - name: 'gcr.io/de-keet/sonar-scanner:latest'
+      args:
+        - '-Dsonar.host.url=https://sonarcloud.io'
+        - '-Dsonar.login=JoviSimons@github'
+        - '-Dsonar.projectKey=adv-software-dekeet'
+        - '-Dsonar.organization=Adv-Software-DeKeet'
+        - '-Dsonar.sources=.'
+  tags: [ 'cloud-builders-community' ]
+#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+ # entrypoint: 'bash'
+ # args:
+ #   - '-c'
+  #  - >
+  #    gcloud deploy releases create release-$BUILD_ID
+  #    --delivery-pipeline=deploy-to-gke
+  #    --region=europe-west4
+  #    --source=src/main/resources
