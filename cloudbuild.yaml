@@ -10,7 +10,7 @@ steps:
         - '-Dsonar.organization=de-keet'
         - '-Dsonar.sources=src/main/java/'
         - '-Dsonar.language=java'
-        - '-Dsonar.java.binaries=**/target/classes'
+        - '-Dsonar.java.binaries=target/classes'
 
 #- name: 'gcr.io/cloud-builders/docker'
 #  entrypoint: 'bash'
