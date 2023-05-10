@@ -1,16 +1,16 @@
 steps:
-- name: maven:3-eclipse-temurin-17-alpine
-  entrypoint: mvn
-  args: ['package']
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args: ['-c', 'docker build -t ${_DOCKER_USERNAME}/dekeet-apigateway:latest .']
-- name: 'gcr.io/cloud-builders/docker'
-  entrypoint: 'bash'
-  args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
+#- name: maven:3-eclipse-temurin-17-alpine
+#  entrypoint: mvn
+#  args: ['package']
+#- name: 'gcr.io/cloud-builders/docker'
+#  entrypoint: 'bash'
+#  args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
+#- name: 'gcr.io/cloud-builders/docker'
+#  entrypoint: 'bash'
+#  args: ['-c', 'docker build -t ${_DOCKER_USERNAME}/dekeet-apigateway:latest .']
+#- name: 'gcr.io/cloud-builders/docker'
+#  entrypoint: 'bash'
+#  args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
 - name: 'gcr.io/de-keet/sonar-scanner:latest'
   args:
         - '-Dsonar.host.url=https://sonarcloud.io'
