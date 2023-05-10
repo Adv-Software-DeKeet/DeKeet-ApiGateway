@@ -1,7 +1,7 @@
 steps:
 - name: maven:3-eclipse-temurin-17-alpine
   entrypoint: mvn
-  args: ['clean','package']
+  args: ['clean','install']
 - name: 'gcr.io/de-keet/sonar-scanner:latest'
   args:
         - '-Dsonar.host.url=https://sonarcloud.io'
