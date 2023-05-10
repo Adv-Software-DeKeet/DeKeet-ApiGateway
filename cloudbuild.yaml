@@ -8,7 +8,10 @@ steps:
         - '-Dsonar.login=ff20baf55553d7ccc9f6da33e8d9eb5d94f6749f'
         - '-Dsonar.projectKey=jovisimons.dekeet.APIGateway'
         - '-Dsonar.organization=de-keet'
-        - '-Dsonar.sources=.'
+        - '-Dsonar.sources=src/main/java/'
+#        -  '-Dsonar.sources=src/main/java/'
+ #       -
+
 #- name: 'gcr.io/cloud-builders/docker'
 #  entrypoint: 'bash'
 #  args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
