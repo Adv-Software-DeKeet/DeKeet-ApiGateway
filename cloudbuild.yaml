@@ -18,7 +18,7 @@ steps:
         - '-Dsonar.projectKey=adv-software-dekeet'
         - '-Dsonar.organization=Adv-Software-DeKeet'
         - '-Dsonar.sources=.'
-  tags: [ 'cloud-builders-community' ]
+tags: [ 'cloud-builders-community' ]
 #- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
  # entrypoint: 'bash'
  # args:
