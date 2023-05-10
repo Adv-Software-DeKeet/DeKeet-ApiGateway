@@ -12,22 +12,22 @@ steps:
         - '-Dsonar.language=java'
         - '-Dsonar.java.binaries=target/classes'
 
-#- name: 'gcr.io/cloud-builders/docker'
-#  entrypoint: 'bash'
-#  args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
-#- name: 'gcr.io/cloud-builders/docker'
-#  entrypoint: 'bash'
-#  args: ['-c', 'docker build -t ${_DOCKER_USERNAME}/dekeet-apigateway:latest .']
-#- name: 'gcr.io/cloud-builders/docker'
-#  entrypoint: 'bash'
-#  args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker build -t ${_DOCKER_USERNAME}/dekeet-apigateway:latest .']
+- name: 'gcr.io/cloud-builders/docker'
+  entrypoint: 'bash'
+  args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+    - '-c'
+    - >
+      gcloud deploy releases create release-$BUILD_ID
+      --delivery-pipeline=deploy-to-gke
+      --region=europe-west4
+      --source=src/main/resources
 tags: [ 'cloud-builders-community' ]
-#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
- # entrypoint: 'bash'
- # args:
- #   - '-c'
-  #  - >
-  #    gcloud deploy releases create release-$BUILD_ID
-  #    --delivery-pipeline=deploy-to-gke
-  #    --region=europe-west4
-  #    --source=src/main/resources
