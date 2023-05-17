@@ -19,13 +19,17 @@ public class GatewayConfig {
 
     @Value("${destinations.userurl}")
     String userUrl;
+
+    @Value("${destinations.eventurl}")
+    String eventUrl;
     @Bean
     public RouteLocator routes(RouteLocatorBuilder builder) {
         return builder.routes()
-
+                //Gateway
                 .route(r -> r.path("/")
                         .and().method(HttpMethod.GET)
                         .uri("no://op"))
+                //User
                 .route(r -> r.path("/api/user/**")
                         .and().method(HttpMethod.GET)
                         .filters(f -> f.filter(filter))
@@ -41,10 +45,28 @@ public class GatewayConfig {
                         .and().method(HttpMethod.PUT)
                         .filters(f -> f.filter(filter))
                         .uri(userUrl))
+                //Auth
                 .route("auth-service", r -> r.path("/auth/**")
                         .filters(f -> f.filter(filter))
                         .uri(authUrl))
+                //Event
+                .route(r -> r.path("/api/event/**")
+                        .and().method(HttpMethod.GET)
+                        .filters(f -> f.filter(filter))
+                        .uri(eventUrl))
+                .route(r -> r.path("/api/event")
+                        .and().method(HttpMethod.POST)
+                        .uri(eventUrl))
+                .route(r -> r.path("/api/event/**")
+                        .and().method(HttpMethod.DELETE)
+                        .filters(f -> f.filter(filter))
+                        .uri(eventUrl))
+                .route(r -> r.path("/api/event/**")
+                        .and().method(HttpMethod.PUT)
+                        .filters(f -> f.filter(filter))
+                        .uri(eventUrl))
                 .build();
+
     }
 
 }

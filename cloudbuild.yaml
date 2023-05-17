@@ -1,7 +1,17 @@
 steps:
-- name: maven:3.18-jdk-11
+- name: maven:3-eclipse-temurin-17-alpine
   entrypoint: mvn
-  args: ['package']
+  args: ['clean','package']
+- name: 'gcr.io/de-keet/sonar-scanner:latest'
+  args:
+        - '-Dsonar.host.url=https://sonarcloud.io'
+        - '-Dsonar.login=ff20baf55553d7ccc9f6da33e8d9eb5d94f6749f'
+        - '-Dsonar.projectKey=jovisimons.dekeet.APIGateway'
+        - '-Dsonar.organization=de-keet'
+        - '-Dsonar.sources=src/main/java/'
+        - '-Dsonar.language=java'
+        - '-Dsonar.java.binaries=target/classes'
+
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args: ['-c', 'docker login --username=${_DOCKER_USERNAME} --password=${_DOCKER_PASSWORD}']
@@ -20,3 +30,4 @@ steps:
       --delivery-pipeline=deploy-to-gke
       --region=europe-west4
       --source=src/main/resources
+tags: [ 'cloud-builders-community' ]
