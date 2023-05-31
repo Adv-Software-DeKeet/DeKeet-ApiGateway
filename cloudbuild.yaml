@@ -21,13 +21,19 @@ steps:
 - name: 'gcr.io/cloud-builders/docker'
   entrypoint: 'bash'
   args: ['-c', 'docker push ${_DOCKER_USERNAME}/dekeet-apigateway:latest']
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
+#- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+#  entrypoint: 'bash'
+#  args:
+#    - '-c'
+#    - >
+#      gcloud deploy releases create release-$BUILD_ID
+#      --delivery-pipeline=deploy-to-gke
+#      --region=europe-west4
+#      --source=src/main/resources
+- name: gcr.io/de-keet/docker-compose
+  env:
+    - 'K6_CLOUD_TOKEN=27e90f135dd334b21a01a972201ace0a33f03ce6497f5640cdce47b146c9f205'
   args:
-    - '-c'
-    - >
-      gcloud deploy releases create release-$BUILD_ID
-      --delivery-pipeline=deploy-to-gke
-      --region=europe-west4
-      --source=src/main/resources
+    - run
+    - k6
 tags: [ 'cloud-builders-community' ]
