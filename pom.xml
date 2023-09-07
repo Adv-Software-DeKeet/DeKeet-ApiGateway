@@ -30,7 +30,7 @@
 			<groupId>io.grpc</groupId>
 			<artifactId>grpc-netty</artifactId>
 			<optional>true</optional>
-			<version>1.47.0</version>
+			<version>1.58.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.firebase</groupId>
